@@ -33,8 +33,8 @@ import javax.persistence.Persistence;
 import junit.framework.TestCase;
 
 
-
-
+import com.mongodb.DB;
+import com.mongodb.MongoClient;
 
 
 /**
@@ -53,7 +53,10 @@ public class BidirectionalMappingTest extends TestCase {
     protected void setUp() throws Exception {
         // like discussed with regards to SessionFactory, an EntityManagerFactory is set up once for an application
         // 		IMPORTANT: notice how the name here matches the name we gave the persistence-unit in persistence.xml!
-        entityManagerFactory = Persistence.createEntityManagerFactory("ogm-jpa-tutorial");
+       MongoClient mongoClient = new MongoClient();
+        DB db = mongoClient.getDB("ogm-jpa-tutorial");
+        db.dropDatabase();
+      entityManagerFactory = Persistence.createEntityManagerFactory("ogm-jpa-tutorial");
        
 
     }

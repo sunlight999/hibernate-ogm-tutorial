@@ -11,9 +11,9 @@
             <property name="hibernate.ogm.datastore.provider"
                       value="mongodb"/>
              <property name="hibernate.ogm.datastore.database"
-                      value="embedded"/>
+                      value="ogm-jpa-tutorial"/>
      
-            <property name="hibernate.ogm.datastore.create_database" value="true" />
+        <property name="hibernate.ogm.datastore.create_database" value="true" />
         </properties>
     </persistence-unit>
 </persistence>
