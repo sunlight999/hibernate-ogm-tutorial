@@ -25,6 +25,7 @@ package org.hibernate.tutorial.em;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -72,10 +73,9 @@ public class BidirectionalMappingTest extends TestCase {
         // create a couple of persons...
          EntityManager entityManager = entityManagerFactory.createEntityManager();
          entityManager.getTransaction().begin();
-         
+        
          ActivPerson person = new ActivPerson(30, "jean-michel", "dupont");
-         
-         Event event1=new Event("Our very first event!", new Date(),person);
+               Event event1=new Event("Our very first event!", new Date(),person);
          Event event2=new Event("A follow up event", new Date(),person);
          
          person.getEvents().add(event1);
@@ -87,18 +87,20 @@ public class BidirectionalMappingTest extends TestCase {
 
          // now lets pull persons from the database and list them
          entityManager = entityManagerFactory.createEntityManager();
-         List<Person> result = entityManager.createQuery("from Person", Person.class).getResultList();
+         List<ActivPerson> result = entityManager.createQuery("from ActivPerson", ActivPerson.class).getResultList();
 
-         for (Person activPerson : result) {
+         for (ActivPerson activPerson : result) {
              System.out.println("Person (" + activPerson.getId() + ") first name: " + activPerson.getFirstname() + ", age : "
                                + activPerson.getAge());
-         }
-      
-       // now lets pull events from the database and list them
-         List<Event> resultEvent = entityManager.createQuery("from Event", Event.class).getResultList();
-         for (Event event : resultEvent) {
+                                // now lets pull events from the database and list them
+         Set<Event> resultEvent=activPerson.getEvents();
+                               for (Event event : resultEvent) {
              System.out.println("Event (" + event.getDate() + ") : " + event.getTitle());
          }
+                               
+         }
+      
+         
 
         entityManager.close();
 

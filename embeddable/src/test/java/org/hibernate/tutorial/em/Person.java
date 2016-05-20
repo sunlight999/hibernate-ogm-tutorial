@@ -29,38 +29,72 @@ import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorType;
 import javax.persistence.DiscriminatorValue;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.TableGenerator;
+import javax.persistence.Id;
 import javax.persistence.Table;
+import org.hibernate.annotations.GenericGenerator;
 
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
 @Table(name = "PERSONS")
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
-@DiscriminatorValue("A")
-public class ActivPerson extends Person {
+@DiscriminatorValue("P")
+@DiscriminatorColumn(name="P_TYPE", discriminatorType=DiscriminatorType.STRING)
+public class Person {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "person")
+   @TableGenerator(
+      name = "person",
+      table = "sequences",
+      pkColumnName = "key",
+      pkColumnValue = "person",
+      valueColumnName = "seed"
+   )
+    @Column(name = "PERSON_ID")
+    protected Long       id;
 
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.ALL})
-    @JoinTable(name = "PERSON_EVENT", joinColumns = @JoinColumn(name = "PERSON_ID"), inverseJoinColumns = @JoinColumn(name = "EVENT_ID"))
-    private Set<Event> events = new HashSet<Event>();
+    @Column(name = "age")
+    protected int        age;
 
-    public ActivPerson() {
+    @Column(name = "first_name")
+    protected String     firstname;
+
+    @Column(name = "last_name")
+    protected String     lastname;
+
+    public Person() {
     }
 
-    public ActivPerson(int age, String firstname, String lastname) {
+    public Person(int age, String firstname, String lastname) {
         this.age = age;
         this.firstname = firstname;
         this.lastname = lastname;
     }
-    
-        public Set<Event> getEvents() {
-        return events;
+
+    // Accessor methods for all properties, private setter for 'id'
+    public Long getId() {
+        return id;
     }
 
+    private void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getFirstname() {
+        return firstname;
+    }
+
+    public String getLastname() {
+        return lastname;
+    }
+
+    public int getAge() {
+        return age;
+    }
 
 }

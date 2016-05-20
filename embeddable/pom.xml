@@ -16,9 +16,9 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>hibernate-ogm-tutorial-basic</artifactId>
+    <artifactId>hibernate-ogm-tutorial-embeddable</artifactId>
     <packaging>jar</packaging>
-    <name>Hibernate OGM basic Tutorial</name>
+    <name>Hibernate OGM embeddable Tutorial</name>
     <description>Hibernate tutorial illustrating the use of entity with mongodb provider  </description>
 
     <properties>
