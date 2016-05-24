@@ -31,6 +31,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Analyze;
 
 
 @Embeddable
@@ -38,6 +40,7 @@ public class Event {
     
     private Long id;
 
+    @Field(analyze=Analyze.YES)
     private String title;
     
   	@Temporal(TemporalType.TIMESTAMP)

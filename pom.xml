@@ -25,6 +25,7 @@
     <modules>
         <module>basic</module>
         <module>embeddable</module>
+        <module>search</module>
       </modules>
 
 <dependencyManagement>
