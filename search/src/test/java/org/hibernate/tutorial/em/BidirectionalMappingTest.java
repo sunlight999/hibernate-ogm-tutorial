@@ -126,8 +126,7 @@ public class BidirectionalMappingTest extends TestCase {
         //Transform the Lucene Query in a JPA Query:
         FullTextQuery ftQuery = ftem.createFullTextQuery(lq, ActivPerson.class);
 
-        ftQuery.initializeObjectsWith( ObjectLookupMethod.SKIP, DatabaseRetrievalMethod.FIND_BY_ID );
-
+ 
         //List all matching Hypothesis:
         List<ActivPerson> resultList = ftQuery.getResultList();
          
